@@ -1,0 +1,23 @@
+###配置启动端口号
+server:
+  port: 11111
+###设定我们的注册项目
+spring:
+  application:
+    name: springCloud-register
+###配置Eureka server信息
+eureka:
+  ###配置注册中心的主机名
+  instance:
+   hostname: localhost
+  client:
+    ###由于本项目是注册中心，因此注册中心写的应用不应该作为服务暴露出去
+    register-with-eureka: false
+    ###对于springcloud项目来说，可以存在 多个注册中心的，
+    ###不同的注册中心之间也可以相互去交换所注册的服务
+    ###但是大部分的注册中心只有一个，因此就不需要其他的注册中心发现服务
+    fetch-registry: false
+    ###设置Eureka client (Provider 和 Consumer)连接地址
+    service-url:
+      ###dubbo 进行远程调用的协议不同，spring cloud 所调用的是http协议
+      defaultZone: https://${eureka.instance.hostname}:${server.port}/eureka
